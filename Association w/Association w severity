@@ -1,0 +1,27 @@
+objects = dFrame.columns.values
+y_pos = np.arange(len(objects))
+p_array[12,:]
+ax = plt.subplot(111)
+
+ax.bar(y_pos, p_array[12,:], align='center')
+ax.axhline(0.05, color = 'r')
+
+
+colors = []
+for i in range(len(objects)):
+    if p_array[12,i] <0.051:
+        colors.append('r')
+    else:
+        colors.append('k')
+
+ax.set_xticks(y_pos)
+ax.set_xticklabels(objects, rotation=70)
+for color,tick in zip(colors,ax.xaxis.get_major_ticks()):
+    tick.label1.set_color(color) 
+
+ax.set_ylabel('P-value')
+plt.title('Association with severity')
+fig = plt.gcf()
+fig.set_size_inches(10, 7)
+fig.subplots_adjust(bottom=0.25)
+fig.savefig('severity_association.png')
