@@ -1,0 +1,119 @@
+a = 12
+b = 9
+
+
+
+d = pd.crosstab(dFrame.iloc[:,a], dFrame.iloc[:,b])
+if 'N/A' in d.columns.tolist():
+    d.__delitem__('N/A')
+if 'N/A' in d.index.tolist():
+    d = d.drop('N/A')
+g,p,dof, expctd = stats.chi2_contingency(d.values)
+h = d.copy()
+d['Total'] = d.sum(axis=1)
+d.sum(axis=1)
+k = pd.Series(d.sum(axis = 0))
+k.name='Total'
+d =d.append(k)
+d.to_clipboard()
+print p
+d
+
+
+h = np.round(h.apply(lambda r: r/r.sum(), axis=0),4)
+h.to_clipboard()
+h
+
+
+
+data = p_array
+mask =  np.tri(data.shape[0], k=-1)
+data = np.ma.array(data, mask=mask)
+fig = plt.figure()
+ax = fig.add_subplot(111)
+map = CM.get_cmap('jet', 100) # jet doesn't have white color
+cmap.set_bad('w') # default value is 'k'
+#ax.imshow(data, interpolation="nearest", cmap=cmap)
+heatmap = ax.pcolor(data, cmap = cmap)
+ax.grid(False)
+plt.colorbar(heatmap)
+
+fig = plt.gcf()
+fig.set_size_inches(11, 11)
+ax.set_frame_on(False)
+
+
+ax.set_xticks(np.arange(data.shape[1]) + 0.5, minor=False)
+ax.set_yticks(np.arange(data.shape[0]) + 0.5, minor=False)
+ax.invert_yaxis()
+
+#lebels
+column_labels = column_name
+row_labels = column_name
+ax.xaxis.set_label_position('top')
+ax.xaxis.tick_top()
+
+ax.set_xticklabels(column_labels, minor=False, rotation=90)
+
+ax.set_yticklabels(row_labels, minor=False)
+
+
+
+
+
+
+
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.colors import ListedColormap
+from matplotlib import cm as CM
+#discrete color scheme
+#import seaborn as sns
+
+#data
+
+data = p_array
+mask =  np.tri(data.shape[0], k=-1)
+data = np.ma.array(data, mask=mask) # mask out the lower triangle
+#data = np.tril(data)
+fig = plt.figure()
+ax = fig.add_subplot(111)
+cmap = CM.get_cmap('jet', 100) # jet doesn't have white color
+cmap.set_bad('w') # default value is 'k'
+#ax.imshow(data, interpolation="nearest", cmap=cmap)
+heatmap = ax.pcolor(data, cmap = cmap)
+ax.grid(False)
+plt.colorbar(heatmap)
+
+fig = plt.gcf()
+fig.set_size_inches(11, 11)
+ax.set_frame_on(False)
+#cbar.ax.get_yaxis().set_ticks([])
+#for j, lab in enumerate(['$0$','$1$','$2$','$>3$']):
+ #   cbar.ax.text(.5, (2 * j + 1) / 8.0, lab, ha='center', va='center')
+#cbar.ax.get_yaxis().labelpad = 15
+#cbar.ax.set_ylabel('# of contacts', rotation=270)
+
+
+# put the major ticks at the middle of each cell
+ax.set_xticks(np.arange(data.shape[1]) + 0.5, minor=False)
+ax.set_yticks(np.arange(data.shape[0]) + 0.5, minor=False)
+ax.invert_yaxis()
+
+#lebels
+column_labels = column_name
+row_labels = column_name
+ax.xaxis.set_label_position('top')
+ax.xaxis.tick_top()
+
+ax.set_xticklabels(column_labels, minor=False, rotation=90)
+
+ax.set_yticklabels(row_labels, minor=False)
+
+plt.show()
+
+
+
+
