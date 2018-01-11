@@ -1,0 +1,465 @@
+temp = []
+
+for i in range(len(smoking)):
+    s = BMI[i]
+    
+    if __builtin__.any(x in s for x in non_available) and len(s)<15: 
+        temp.append('N/A')
+      
+    
+    elif BMI[i] not in negative:
+        
+        s = np.float(BMI[i])
+        
+        if s>=30:
+            temp.append('Obesity')
+        elif 25 <=  s <=29.9:
+            temp.append('Overweight')
+        elif 18.5<=s<=24.99:
+            temp.append('Normal')
+        else:
+            temp.append('Underweight')
+    
+        
+        
+BMIcategory_hist = pd.Series(temp)
+BMIcategory_hist.value_counts() 
+    
+    
+    
+g1=[]
+g2 =[]
+for i in range(len(smoking)):
+    if severity[i]=='Remission':
+           g1.append(np.float(age_hist[i]))
+    elif severity[i]!='N/A' and severity[i]!='No_remission':
+           g2.append(np.float(age_hist[i]))
+
+
+plt.hist(g1,10, normed=True, label = 'Remission')
+plt.hist(g2,10, normed=True, label = 'Else')
+plt.legend()
+print np.mean(g1), np.mean(g2)
+stats.ttest_ind(g1,g2)
+
+
+temp = []
+
+for i in range(len(smoking)):
+    
+   
+    s = antibiotics[i]
+    print s
+    if pd.isnull(s):
+        s = 'N/A'
+    if __builtin__.any(x in s for x in non_available) and len(s)<15: 
+        temp.append('N/A')
+      
+    elif __builtin__.any(x in s for x in negative):
+        temp.append('No-used')
+    else:
+        temp.append('Used')
+antibiotics_hist = pd.Series(temp)
+antibiotics_hist.value_counts()
+
+
+
+
+temp =[]
+for i in range(len(smoking)):
+    s = psychology[i]
+    print s
+    if pd.isnull(s):
+        s = 'N/A'
+        
+    if __builtin__.any(x in s for x in non_available) and len(s)<15: 
+        temp.append('N/A')
+     
+    elif __builtin__.any(x in s for x in negative):
+        temp.append('Non-disorder')
+    else:
+        temp.append("Has-disorder")
+
+        
+psychology_hist = pd.Series(temp)
+psychology_hist.value_counts()
+
+
+
+
+temp =[]
+cnt = 0
+for i in range(len(smoking)):
+    s = complication[i]
+    if pd.isnull(s):
+        s = 'N/A'
+    
+    if __builtin__.any(x in s for x in non_available) and len(s)<15: 
+        temp.append('N/A')
+        
+    elif __builtin__.any(x in s for x in negative) and  len(s)<15:
+        temp.append('Non-Complication')
+        
+      
+    else:
+        temp.append("Has-Complication")
+        
+        #print symptom[i]
+        
+complication_hist = pd.Series(temp)
+complication_hist.value_counts()
+
+
+
+temp =[]
+for i in range(len(smoking)):
+    
+    
+    s = symptom_extra[i]
+    if pd.isnull(s):
+        
+        s = 'N/A'
+        
+    
+    
+      
+    if __builtin__.any(x in s for x in non_available) and len(s)<15: 
+        temp.append('N/A')
+        print s
+       
+    
+    elif __builtin__.any(x in s for x in negative) and  len(s)<15:
+        temp.append('Non-Symptom')
+        #print s
+    elif 'asym' in s:
+        temp.append('Non-Symptom')
+        #print s
+     
+    else:
+        temp.append("Has-Symptom")
+       
+       
+        
+Symptom_extra_intestinal = pd.Series(temp)
+Symptom_extra_intestinal.value_counts()
+
+
+
+temp =[]
+for i in range(len(smoking)):
+    s = symptom[i]
+    
+    if pd.isnull(s):
+        s = 'N/A'
+    
+      
+    if __builtin__.any(x in s for x in non_available) and len(s)<15: 
+        temp.append('N/A')
+       
+    
+    elif __builtin__.any(x in s for x in negative) and  len(symptom[i])<15:
+        temp.append('Non-Symptom')
+    elif 'asym' in s:
+        temp.append('Non-Symptom')
+     
+    else:
+        temp.append("Has-Symptom")
+       
+       
+        
+Symptom_intestinal = pd.Series(temp)
+Symptom_intestinal.value_counts()
+
+
+
+
+temp =[]
+for i in range(len(smoking)):
+    s = smoking[i]
+    if pd.isnull(s):
+        s='n/a'
+  
+    if __builtin__.any(x in s for x in non_available) and len(s)<15: 
+        temp.append('N/A')
+       
+    elif "non" in s or "no" in s or "never" in s or "quit" in s:
+        temp.append('Non-smoker')
+        
+    else:
+        temp.append("Smoker")        
+smoking_hist = pd.Series(temp)
+smoking_hist.value_counts()
+
+
+
+
+temp =[]
+for i in range(len(smoking)):
+    s = typesofibd[i]
+    
+    if __builtin__.any(x in s for x in non_available) and len(s)<15: 
+        temp.append('N/A')
+        
+    elif "croh" in s or "Croh" in s: 
+        temp.append('Crohns')
+        
+    else:
+        temp.append("Non-Crohns")
+        
+IBDtype = pd.Series(temp)
+IBDtype.value_counts()
+
+
+
+
+temp =[]
+
+for i in range(len(smoking)):
+    s = family[i]
+    if pd.isnull(s):
+        s='n/a'
+    if __builtin__.any(x in s for x in non_available) and len(s)<15: 
+        temp.append('N/A')
+        
+        
+    elif "Croh" in s or "croh" in s:
+        temp.append("Crohn history")
+    elif "nothing" in s or "non" in s or "unknown" in s or "negat" in s and len(s)<15: 
+        temp.append('Nothing')
+       
+    elif "no" in s and len(s)<3:
+        temp.append("Nothing")
+        
+     
+    else:
+        temp.append("Has history")
+       
+family_hist = pd.Series(temp)
+family_hist.value_counts()
+
+
+
+
+temp =[]
+for i in range(len(smoking)):
+    s = allergies[i]
+    
+        
+    if __builtin__.any(x in s for x in non_available) and len(s)<15: 
+        temp.append('N/A')
+               
+    elif 'NKDA' in s:
+        temp.append('Non-Allergies')
+    elif __builtin__.any(x in s for x in negative) and  len(s)<5:
+        temp.append('Non-Allergies')
+        
+    else:
+        temp.append("Allergies")
+        
+allergies_hist = pd.Series(temp)
+allergies_hist.value_counts()
+
+
+
+temp =[]
+for i in range(len(smoking)):
+    s = extent[i]
+    if pd.isnull(s):
+        s='n/a'
+    
+    if __builtin__.any(x in s for x in non_available) and len(s)<15: 
+        temp.append('N/A')
+        
+    
+    elif __builtin__.any(x in s for x in negative) and len(s)<30:
+        temp.append('Remission')
+        
+           
+    elif "remiss" in s or "quies" in s or "asympto" in s: 
+        temp.append('Remission')
+        
+    elif "seve" in s or "flaring" in s or 'flare' in s:
+        temp.append("Severe")
+        
+    else:
+        temp.append("No_remission")
+        
+severity = pd.Series(temp)
+severity.value_counts()
+
+
+
+a =smoking_hist
+b =num_flare_up_hist
+dp = pd.crosstab(a,b).apply(lambda r: r/r.sum(), axis=0)
+d = pd.crosstab(a,b, margins = True)
+
+
+d
+
+
+
+
+
+
+
+print len(other_medical_hist)
+print len (IBDtype)
+severity
+family_hist
+smoking_hist
+drugs_hist
+antibiotics_hist
+allergies_hist
+#alcohol_category
+Symptom_intestinal
+complication_hist
+psychology_hist
+BMIcategory_hist
+gender_hist
+num_flare_up_hist
+
+dcol = {'Other medical problem': other_medical_hist, 'Types of IBD': IBDtype}
+dcol.update({'Severity':severity, 'Family history': family_hist, 'Smoking history':smoking_hist, 'Drugs history':drugs_hist})
+dcol.update({'Antibiotic used':antibiotics_hist, 'Allergie':allergies_hist })
+dcol.update({'Intestinal Symptom':Symptom_intestinal, 'Complication':complication_hist, 'Psychological disorder':psychology_hist})
+dcol.update({'BMI':BMIcategory_hist, 'Gender':gender_hist, 'Symptom Extra': Symptom_extra_intestinal, 'Num Flare': num_flare_up_hist})
+dcol.update({'Age':age})
+dFrame = pd.DataFrame(dcol)
+dFrame.to_csv('IBD_sel.csv', index=False)
+
+
+
+
+a = pd.crosstab(dFrame.iloc[:,7], dFrame.iloc[:,0], margins = True)
+print a
+
+
+
+
+for i in range(len(dFrame.columns)):
+    v = dFrame.iloc[:,i]
+    vc = v.value_counts()
+    if 'N/A' in vc.index:
+        print dFrame.columns[i],'\t,', vc['N/A']
+        
+        
+
+
+column_name = list(dFrame.columns.values)
+
+p_array =np.zeros((len(dFrame.columns),len(dFrame.columns)))
+for i in [12]:
+    for j in range(len(dFrame.columns)):
+        if i != j :
+            #print column_name[i], "vs.", column_name[j]
+            contingency_table =pd.crosstab(dFrame.iloc[:,i], dFrame.iloc[:,j])
+            
+            col = -1
+            row = -1
+            
+            
+            if 'N/A' in contingency_table.columns.tolist():
+                col =contingency_table.columns.tolist().index('N/A')
+            if 'N/A' in contingency_table.index.tolist():
+                row =contingency_table.index.tolist().index('N/A')
+            data_chisquare = contingency_table.values
+            x = data_chisquare
+            
+            
+            if row>-1:
+                x = np.delete(data_chisquare,(row), axis=0)
+            if col >-1:
+                x = np.delete(x,(col), axis = 1)
+            
+            g,p,dof, expctd = stats.chi2_contingency(x)
+        
+            p_array[i,j]=p
+            if p<1 :
+                print column_name[i], "vs.", column_name[j], "(p value=%.10f)"%p,  (i,j)
+                p_array[i,j]=p
+                contingency_table
+            else:
+                p_array[i,j]=p
+        else:
+            p_array[i,j]=1
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
